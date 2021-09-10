@@ -10,9 +10,12 @@ public class PlayerControl : NetworkBehaviour
 
     void Update()
     {
-        if (GetComponent<NetworkIdentity>().hasAuthority)//make sure this is an object that we ae controlling
+        // movement for local player only because this is NetworkBehaviour
+        if (!isLocalPlayer) return;
+
+       // if (GetComponent<NetworkIdentity>().hasAuthority)//make sure this is an object that we ae controlling
         {
-            GetComponent<Renderer>().material.color = c;//change color
+            
             Control = new Vector3(Input.GetAxis("Horizontal") * .2f, 0, Input.GetAxis("Vertical") * .2f);//update our controll varible
 
 
@@ -33,5 +36,6 @@ public class PlayerControl : NetworkBehaviour
     public override void OnStartLocalPlayer()
     {
         Camera.main.GetComponent<CameraFollow>().setTarget(gameObject.transform);
+        GetComponent<Renderer>().material.color = c;  //change color
     }
 }
