@@ -22,17 +22,19 @@ public class PhysicsLink : NetworkBehaviour
             Rotation = rb.rotation;
             Velocity = rb.velocity;
             AngularVelocity = rb.angularVelocity;
-            rb.position = Position;
-            rb.rotation = Rotation;
-            rb.velocity = Velocity;
-            rb.angularVelocity = AngularVelocity;
         }
         if (GetComponent<NetworkIdentity>().isClient)//if we are a client update our rigidbody with the servers rigidbody info
         {
             rb.position = Position + Velocity * (float)NetworkTime.rtt;//account for the lag and update our varibles
-            rb.rotation = Rotation * Quaternion.Euler(AngularVelocity * (float)NetworkTime.rtt);
+            rb.rotation = Rotation; //* Quaternion.Euler(AngularVelocity * (float)NetworkTime.rtt);  //if this is uncommented the thing is jumpy af 
             rb.velocity = Velocity;
             rb.angularVelocity = AngularVelocity;
+            
+            //09/25 if this isnt here the movements are jerky
+            Position = rb.position;
+            Rotation = rb.rotation;
+            Velocity = rb.velocity;
+            AngularVelocity = rb.angularVelocity;
         }
     }
     [Command]//function that runs on server when called by a client
