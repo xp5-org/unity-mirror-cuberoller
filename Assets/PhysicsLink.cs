@@ -25,10 +25,11 @@ public class PhysicsLink : NetworkBehaviour
         }
         if (GetComponent<NetworkIdentity>().isClient)//if we are a client update our rigidbody with the servers rigidbody info
         {
-            rb.position = Position + Velocity * (float)NetworkTime.rtt;//account for the lag and update our varibles
-            rb.rotation = Rotation; //* Quaternion.Euler(AngularVelocity * (float)NetworkTime.rtt);  //if this is uncommented the thing is jumpy af 
-            rb.velocity = Velocity;
-            rb.angularVelocity = AngularVelocity;
+            //using this commented out section on localhost causes really bad jumpy cubes
+            //rb.position = Position + Velocity * (float)NetworkTime.rtt;//account for the lag and update our varibles
+            //rb.rotation = Rotation; //* Quaternion.Euler(AngularVelocity * (float)NetworkTime.rtt);  //if this is uncommented the thing is jumpy af 
+            //rb.velocity = Velocity;
+            //rb.angularVelocity = AngularVelocity;
             
             //09/25 if this isnt here the movements are jerky
             Position = rb.position;

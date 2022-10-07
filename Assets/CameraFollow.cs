@@ -14,6 +14,7 @@ public class CameraFollow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // should this run for only localplayer? or both server and player?  or does it not matter bc we arae in MonoBehaviour? 
         // do mouse update always
         yaw += speedH * Input.GetAxis("Mouse X");
         pitch -= speedV * Input.GetAxis("Mouse Y");
